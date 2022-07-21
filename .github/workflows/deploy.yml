@@ -8,15 +8,20 @@ on:
 jobs:
   deploy-infrastructure:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+      AWS_SESSION_TOKEN: ${{secrets.AWS_SESSION_TOKEN}}
+      AWS_REGION: eu-central-1
     steps:
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
+      # create bucket because sandbox maybe destroy the bucket
+      - name: setup terraform s3 state bucket
+        run: |
+          cd infrastructure
+          sh setup_terraform_state_s3_bucket.sh
       - name: deploy with terraform
-        env:
-          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          AWS_SESSION_TOKEN: ${{secrets.AWS_SESSION_TOKEN}}
-          AWS_REGION: eu-central-1
         run: |
           cd infrastructure
           terraform init
