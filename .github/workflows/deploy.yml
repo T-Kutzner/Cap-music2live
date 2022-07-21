@@ -23,5 +23,6 @@ jobs:
           sh setup_terraform_state_s3_bucket.sh
       - name: deploy with terraform
         run: |
+          cd infrastructure
           terraform init
           terraform apply -auto-approve
