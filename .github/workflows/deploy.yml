@@ -21,6 +21,10 @@ jobs:
         run: |
           cd infrastructure
           sh setup_terraform_state_s3_bucket.sh
+      - name: build source code
+        run: |
+          cd src
+          sh build_source_code.sh
       - name: deploy with terraform
         run: |
           cd infrastructure
