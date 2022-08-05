@@ -12,8 +12,8 @@ BASIC_API_URL = "https://api.spotify.com"
 #client_id = variables.client_id
 #client_secret = variables.client_secret
 
-client_id = os.environ['CLIENT_ID']
-client_secret = os.environ['CLIENT_SECRET']
+api_client_id = os.environ['API_CLIENT_ID']
+api_client_secret = os.environ['API_CLIENT_SECRET']
 
 album_table_name = os.environ['ALBUM_TABLE_NAME']
 
@@ -21,7 +21,7 @@ dynamodb_resource = boto3.resource('dynamodb')
 album_table = dynamodb_resource.Table(album_table_name)
 
 def get_access_token_from_api():
-    auth = 'Basic ' + base64.b64encode((client_id + ':' + client_secret).encode()).decode()
+    auth = 'Basic ' + base64.b64encode((api_client_id + ':' + api_client_secret).encode()).decode()
     response_token = requests.post(GET_TOKEN_URL, headers={'Authorization' : auth, 'Content-Type' : 'application/x-www-form-urlencoded'}, data = {'grant_type' : 'client_credentials'})
     return response_token.json()
 
