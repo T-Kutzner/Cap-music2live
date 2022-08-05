@@ -3,3 +3,4 @@
 terraform.tfstate
 terraform.tfstate.backup
 build
+spotify_api_keys.tfvars
