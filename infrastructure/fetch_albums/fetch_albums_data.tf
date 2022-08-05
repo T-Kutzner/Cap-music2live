@@ -2,7 +2,7 @@ resource "aws_lambda_function" "fetch_albums_lambda" {
 
   filename      = "build/fetch_albums_lambda.zip"
   function_name = "fetch_albums_lambda"
-  role          = var.role_arn
+  role          = "${var.role_arn}"
   handler       = "fetch_album.handler"
 
   source_code_hash = filebase64sha256("build/fetch_albums_lambda.zip")
