@@ -26,15 +26,13 @@ def get_access_token_from_api():
 def get_artist_id_from_api(credentials, artist_name):
     auth = 'Bearer ' + credentials['access_token']
     response_artist = requests.get(BASIC_API_URL + '/v1/search?q=' + artist_name + '&type=artist&market=DE&limit=1&offset=0', headers={'Authorization' : auth})
-    id_of_artist = (response_artist.json())['artists']['items'][0]['id']
-    return id_of_artist
+    return (response_artist.json())['artists']['items'][0]['id']
 
 
 def get_album_data_from_api(credentials, artist_id):
     auth = 'Bearer ' + credentials['access_token']
     response_albums = requests.get(BASIC_API_URL + '/v1/artists/' + artist_id + '/albums?offset=0&limit=50&include_groups=album&market=DE', headers={'Authorization' : auth})
-    albums = (response_albums.json())['items']
-    return albums
+    return (response_albums.json())['items']
 
 
 def map_album_data(album_api_data):
