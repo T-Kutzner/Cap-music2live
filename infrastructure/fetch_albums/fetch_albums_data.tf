@@ -2,7 +2,7 @@ resource "aws_lambda_function" "fetch_albums_lambda" {
 
   filename      = "build/fetch_albums_lambda.zip"
   function_name = "fetch_albums_lambda"
-  role          = "arn:aws:iam::959074398624:role/LabRole"
+  role          = var.role_arn
   handler       = "fetch_album.handler"
 
   source_code_hash = filebase64sha256("build/fetch_albums_lambda.zip")
@@ -10,11 +10,12 @@ resource "aws_lambda_function" "fetch_albums_lambda" {
   runtime = "python3.9"
   timeout = 600
   layers = [aws_lambda_layer_version.requests_layer.arn]
-}
 
-resource "aws_lambda_layer_version" "requests_layer" {
-  filename      = "build/requests_layer.zip"
-  layer_name    = "requests_layer"
-
-  compatible_runtimes = ["python3.9"]
+  environment {
+    variables = {
+      ALBUM_TABLE_NAME = var.album_table_name
+      API_CLIENT_ID = var.api_client_id
+      API_CLIENT_SECRET = var.api_client_secret
+    }
+  }
 }

@@ -15,5 +15,4 @@ resource "aws_dynamodb_table" "albums" {
     name = "album_id"
     type = "S"
   }
-
 }

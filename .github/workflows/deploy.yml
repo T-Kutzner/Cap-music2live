@@ -26,7 +26,10 @@ jobs:
           cd src
           sh build_source_code.sh
       - name: deploy with terraform
+        env:
+          API_CLIENT_ID: ${{secrets.API_CLIENT_ID}}
+          API_CLIENT_SECRET: ${{secrets.API_CLIENT_SECRET}}
         run: |
           cd infrastructure
           terraform init
-          terraform apply -auto-approve
+          terraform apply -var="api_client_id=$API_CLIENT_ID" -var="api_client_secret=$API_CLIENT_SECRET" -auto-approve

@@ -3,17 +3,21 @@ import base64
 import variables
 import boto3
 from datetime import datetime
+import os
 
 
 GET_TOKEN_URL = "https://accounts.spotify.com/api/token"
 BASIC_API_URL = "https://api.spotify.com"
 
-client_id = variables.client_id
-client_secret = variables.client_secret
+#client_id = variables.client_id
+#client_secret = variables.client_secret
 
-album_table_name = "albums"
+client_id = os.environ['CLIENT_ID']
+client_secret = os.environ['CLIENT_SECRET']
 
-dynamodb_resource = boto3.resource("dynamodb")
+album_table_name = os.environ['ALBUM_TABLE_NAME']
+
+dynamodb_resource = boto3.resource('dynamodb')
 album_table = dynamodb_resource.Table(album_table_name)
 
 def get_access_token_from_api():
