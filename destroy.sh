@@ -1,3 +1,3 @@
 #!/bin/bash
 cd ./infrastructure
-terraform destroy -auto-approve
+terraform destroy -var-file="spotify_api_keys.tfvars" -auto-approve
