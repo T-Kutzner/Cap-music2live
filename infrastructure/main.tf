@@ -9,13 +9,12 @@ terraform {
   backend "s3" {
     bucket = "mysongartistalbumtkbucket"
     key    = "terraform.tfstate"
-    region = "eu-central-1"
+    region = "us-west-2"
   }
 }
 
-# Configure the AWS Provider
 provider "aws" {
-  region = "eu-central-1"
+  region = "us-west-2"
   profile = "default"
 }
 
