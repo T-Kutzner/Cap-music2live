@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Music2Live</title>
+        <link rel="stylesheet" href="static/styles.css" />
+    </head>
+
+    <body>        
+        <h1>Hi and Welcome to:</h1>
+        <div class="music__pic">
+            <img src="static/music.png" width="220" alt="Logo">
+        </div>
+        <h2>Here you can see all of your saved albums</h2>
+        <div>
+            <table class="table">
+                <tr class="table__header">
+                    {% for header in headers %}
+                    <th class="table__cell">{{header}}</th>
+                    {% endfor %}
+                </tr>
+                {% for row in data %}
+                <tr class="table__row">
+                    {% for cell in row %}
+                    <td class="table__cell">{{cell}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>

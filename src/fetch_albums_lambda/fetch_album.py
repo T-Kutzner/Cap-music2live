@@ -58,7 +58,7 @@ def save_album_data(mapped_album_data):
 
 def handler(event, context):
     credentials = get_access_token_from_api()
-    artist_id = get_artist_id_from_api(credentials, 'Billy Talent')
+    artist_id = get_artist_id_from_api(credentials, 'Wolfmother')
     album_api_data = get_album_data_from_api(credentials, artist_id)
     mapped_album_data = map_album_data(album_api_data)
     save_album_data(mapped_album_data)

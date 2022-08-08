@@ -1,14 +1,22 @@
-from present_function import main_function
+from display import main_function
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 
 app = FastAPI()
+templates = Jinja2Templates(directory="html_files")
 
-@app.get("/home")
-def show_album_data():
+headers = ("Artist", "Album", "Release Date")
+
+@app.get("/home", response_class=HTMLResponse)
+def show_album_data(request: Request):
    data = main_function()
-   print(data) 
+   return templates.TemplateResponse("index.html", {"request": request, "headers": headers, "data": data})
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
    
 
 if __name__ == "__main__":
